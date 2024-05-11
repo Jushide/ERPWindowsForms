@@ -1,0 +1,10 @@
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\bin\Debug\ERPWindowsForms.exe.config
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\bin\Debug\ERPWindowsForms.exe
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\bin\Debug\ERPWindowsForms.pdb
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.csproj.AssemblyReference.cache
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.Form1.resources
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.Properties.Resources.resources
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.csproj.GenerateResource.cache
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.csproj.CoreCompileInputs.cache
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.exe
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.pdb
