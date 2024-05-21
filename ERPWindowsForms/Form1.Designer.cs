@@ -87,6 +87,7 @@
             this.service_button.TabIndex = 4;
             this.service_button.Text = "Service";
             this.service_button.UseVisualStyleBackColor = true;
+            this.service_button.Click += new System.EventHandler(this.service_button_Click);
             // 
             // button4
             // 

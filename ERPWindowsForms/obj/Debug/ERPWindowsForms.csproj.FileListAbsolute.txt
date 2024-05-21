@@ -8,3 +8,5 @@ C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForm
 C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.csproj.CoreCompileInputs.cache
 C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.exe
 C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.pdb
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.ServiceForm.resources
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.Service.AddServiceTicketForm.resources
