@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ERPWindowsForms.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,30 +13,36 @@ namespace ERPWindowsForms
 {
     public partial class Form1 : Form
     {
-        public string choosenLanguage = "EN";
+        public string selectedLanguage = "EN";
 
         public Form1()
         {
             InitializeComponent();
             languageSelector.SelectedIndex = 1;
+            
         }
 
         private void languageSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (languageSelector.SelectedIndex == 0)
             {
-                choosenLanguage = "PL";
+                selectedLanguage = "PL";
                 label1.Text = "Gratulacje użytkowniku";
                 label2.Text = "Wygrałeś okres próbny naszej aplikacji";
                 service_button.Text = "Serwis";
             }
             else
             {
-                choosenLanguage = "EN";
+                selectedLanguage = "EN";
                 label1.Text = "Welcome user";
                 label2.Text = "What do you want to do?";
                 service_button.Text = "Service";
             }
+        }
+
+        private void service_button_Click(object sender, EventArgs e)
+        {
+            new ServiceForm(selectedLanguage).Show();
         }
     }
 }
