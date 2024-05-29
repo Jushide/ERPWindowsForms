@@ -33,6 +33,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Syncfusion.Compression.Base, Version=25.2462.6.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Compression.Base.25.2.6\lib\net462\Syncfusion.Compression.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Licensing, Version=25.2462.6.0, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.25.2.6\lib\net462\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Pdf.Base, Version=25.2462.6.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Pdf.WinForms.25.2.6\lib\net462\Syncfusion.Pdf.Base.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,6 +70,12 @@
     <Compile Include="Service\AddServiceTicketForm.Designer.cs">
       <DependentUpon>AddServiceTicketForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Service\EditServiceTicket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Service\EditServiceTicket.Designer.cs">
+      <DependentUpon>EditServiceTicket.cs</DependentUpon>
+    </Compile>
     <Compile Include="Service\ServiceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,9 +97,13 @@
     <EmbeddedResource Include="Service\AddServiceTicketForm.resx">
       <DependentUpon>AddServiceTicketForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Service\EditServiceTicket.resx">
+      <DependentUpon>EditServiceTicket.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Service\ServiceForm.resx">
       <DependentUpon>ServiceForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
