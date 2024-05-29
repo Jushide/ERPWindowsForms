@@ -1,0 +1,7 @@
+4ce61d7c-c21d-401c-9fdc-95f501a79c28;2137123;Komputer Nr 74/12;Uczen uderzyl w monitor;TO_VERIFY
+032a2060-adaf-47f2-83dd-2bbdc4aaa6e4;444021;Komputer Nr 81/02;Bluescreen;PENDING
+ba6ab683-169c-45ff-8c3d-cd4c1e89dfd2;412632;Tablet;Brak ladowarki;IN_REALIZATION
+647793f6-14ac-44cc-974f-b61722cc5ad4;412635;Tablet;Spadl na ziemie;PENDING
+337c0404-945b-4f7c-a515-7b7a103eeb39;857612;Komputer Nauczyciela Nr 84;Nie dziala siec;DONE
+4b85d18b-91e5-43b7-9557-2afdb3f6796d;812312;Router Nr 82/01;Mimo restartow nie dziala;DONE
+074ed844-9359-4b5e-91d4-643523b56136;5123123;Telefon;Telefon sluzbowy sie nie wlacza;DONE

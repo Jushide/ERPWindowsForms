@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,22 +15,14 @@ namespace ERPWindowsForms.Service
 {
     public partial class AddServiceTicketForm : Form
     {
-        //private readonly ServiceTickets serviceTickets = new ServiceTickets();
-        private ListViewItem listViewItem;
+        private static ServiceTickets serviceTickets = new ServiceTickets();
+        private string selectedLanguage;
+
 
 
         public AddServiceTicketForm(string selectedLanguage)
         {
             InitializeComponent();
-            
-
-            //this.serviceTickets = serviceTickets;
-            /*row.Text = "" + Guid.NewGuid();
-            row.SubItems.Add("2137");
-            row.SubItems.Add("Komputer sekretarki");
-            row.SubItems.Add("Zapalił się");
-            row.SubItems.Add("Pending");
-            listView1.Items.Add(row);*/
         }
 
         private void confirmTicketButton_Click(object sender, EventArgs e)
@@ -38,9 +31,22 @@ namespace ERPWindowsForms.Service
             string name = nameTextBox.Text;
             string description = descriptionTextBox.Text;
 
-            if(description.Length > 10 ) 
+            if (description.Length > 100)
             {
-                MessageBox.Show("Too long description");
+                MessageBox.Show("Too long description", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (name.Length < 4)
+            {
+                MessageBox.Show("Incorrect name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!serialNumber.All(ch => char.IsNumber(ch)) || serialNumber.Length < 4)
+            {
+                MessageBox.Show("Incorrect serial number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             var serviceTicket = ServiceModel.Create(
@@ -49,20 +55,12 @@ namespace ERPWindowsForms.Service
                 description
             );
 
-            label6.Text = serialNumber + ": " + name + " - " + description;
+            serviceTickets.AddServiceTickets(serviceTicket);
 
-            /*listViewItem.Text = "" + Guid.NewGuid();
-            listViewItem.SubItems.Add("2137");
-            listViewItem.SubItems.Add("Komputer sekretarki");
-            listViewItem.SubItems.Add("Zapalił się");
-            listViewItem.SubItems.Add("Pending");
+            StreamWriter file = new StreamWriter("ServiceTickets.txt", append: true);
 
-            List<ListViewItem> data = new List<ListViewItem>() { listViewItem };
-
-            // Pass data to Form2
-            ServiceForm serviceForm = new ServiceForm("EN");
-            serviceForm.ListViewData = data;
-            serviceForm.Show();*/
+            file.WriteLine(serviceTicket.Id + ";" + serviceTicket.SerialNumber + ";" + serviceTicket.Name + ";" + serviceTicket.Description + ";" + serviceTicket.Status);
+            file.Close();
         }
 
         private void AddServiceTicketForm_Load(object sender, EventArgs e)

@@ -5,12 +5,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+using System.Drawing;
+using System.Xml.Linq;
+using Syncfusion.Pdf.Grid;
 
 namespace ERPWindowsForms
 {
@@ -43,152 +50,149 @@ namespace ERPWindowsForms
                 label1.Text = "Serwis";
             }
 
-            /*ListViewItem row = new ListViewItem();
-            row.Text=""+Guid.NewGuid();
-            row.SubItems.Add("2137");
-            row.SubItems.Add("Komputer sekretarki");
-            row.SubItems.Add("Zapalił się");
-            row.SubItems.Add("Pending");
-            listView1.Items.Add(row);*/
+            readFromFileAndAddToListView();
 
-            statusComboBox.Items.Add(ServiceStatus.PENDING);
-            statusComboBox.Items.Add(ServiceStatus.IN_REALIZATION);
-            statusComboBox.Items.Add(ServiceStatus.TO_VERIFY);
-            statusComboBox.Items.Add(ServiceStatus.DONE);
-            statusComboBox.SelectedIndex = 0;
+            pendingRadioButton.Checked = true;
+        }
+
+        private void readFromFileAndAddToListView()
+        {
+            StreamReader file = new StreamReader("ServiceTickets.txt");
+            String line = "";
+            while ((line = file.ReadLine()) != null)
+            {
+                string[] data = line.Split(';');
+                string[] row = { data[0], data[1], data[2], data[3], data[4] };
+                ListViewItem item = new ListViewItem(row);
+                listView1.Items.Add(item);
+
+                var serviceTicket = ServiceModel.CreateFromFile(
+                    new Guid(data[0]), 
+                    data[1], 
+                    data[2],
+                    data[3], 
+                    data[4]
+                );
+
+                serviceTickets.AddServiceTickets(serviceTicket);
+            }
+            file.Close();
         }
 
         private void AddTicket_Click(object sender, EventArgs e)
         {
-            //new AddServiceTicketForm(selectedLanguage).Show();
-            actionType = "post";
-            addTicket.Visible = false;
-            label1.Text = "Add ticket";
-            listView1.Visible = false;
-            goBack.Visible = true;
-            label2.Visible = true;
-            label3.Visible = true;
-            label4.Visible = true;
-            serialNumberInput.Visible = true;
-            nameInput.Visible = true;
-            addTicketButton.Visible = true;
-            descInput.Visible = true;
-            refreshButton.Visible=false;
-        }
-
-        private void goBack_Click(object sender, EventArgs e)
-        {
-            actionType = "get";
-            addTicket.Visible = true;
-            if (selectedLanguage == "PL") label1.Text = "Serwis";
-            else label1.Text = "Service";
-            listView1.Visible = true;
-            goBack.Visible = false;
-            label2.Visible = false;
-            label3.Visible = false;
-            label4.Visible = false;
-            serialNumberInput.Visible = false;
-            nameInput.Visible = false;
-            addTicketButton.Visible = false;
-            descInput.Visible = false;
-            refreshButton.Visible = true;
-            label5.Visible = false;
-            statusComboBox.Visible = false;
-            editTicketButton.Visible = false;
-        }
-
-        private void addTicketButton_Click(object sender, EventArgs e)
-        {
-            string serialNumber = serialNumberInput.Text;
-            string name = nameInput.Text;
-            string description = descInput.Text;
-
-            if (description.Length > 100)
-            {
-                MessageBox.Show("Too long description", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (name.Length < 4)
-            {
-                MessageBox.Show("Incorrect name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (!serialNumber.All(ch => char.IsNumber(ch)) || serialNumber.Length < 1)
-            {
-                MessageBox.Show("Incorrect serial number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            var serviceTicket = ServiceModel.Create(
-                serialNumber,
-                name,
-                description
-            );
-
-
-
-            serviceTickets.AddServiceTickets(serviceTicket);
-
-            ListViewItem row = new ListViewItem();
-            row.Text=""+ serviceTicket.Id;
-            row.SubItems.Add(serviceTicket.SerialNumber);
-            row.SubItems.Add(serviceTicket.Name);
-            row.SubItems.Add(serviceTicket.Description);
-            row.SubItems.Add(""+serviceTicket.Status);
-            listView1.Items.Add(row);
+            new AddServiceTicketForm(selectedLanguage).Show();
         }
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
             listView1.Items.Clear();
 
-            foreach (var serviceTicket in serviceTickets.GetAllServiceTickets())
-            {
-                ListViewItem row = new ListViewItem();
-                row.Text = "" + serviceTicket.Id;
-                row.SubItems.Add(serviceTicket.SerialNumber);
-                row.SubItems.Add(serviceTicket.Name);
-                row.SubItems.Add(serviceTicket.Description);
-                row.SubItems.Add("" + serviceTicket.Status);
-                listView1.Items.Add(row);
-            }
+            readFromFileAndAddToListView();
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            actionType = "put";
-            addTicket.Visible = false;
-            label1.Text = "Edit ticket";
-            listView1.Visible = false;
-            goBack.Visible = true;
-            label2.Visible = false;
-            label3.Visible = false;
-            label4.Visible = true;
-            serialNumberInput.Visible = false;
-            nameInput.Visible = false;
-            descInput.Visible = true;
-            refreshButton.Visible = false;
-            label5.Visible = true;
-            statusComboBox.Visible = true;
-            editTicketButton.Visible = true;
-
-            
-
             selectedId = listView1.SelectedItems[0].ToString().Substring(1 + listView1.SelectedItems[0].ToString().IndexOf("{"), 36);
 
-            var serviceTicket = serviceTickets.GetServiceTicket(new Guid(selectedId));
-            descInput.Text = serviceTicket.Description;
+            new EditServiceTicket(new Guid(selectedId)).Show();
         }
 
-        private void editTicketButton_Click(object sender, EventArgs e)
+        private void searchBySerialNumber_Click(object sender, EventArgs e)
         {
-            
+            string serialNumber = searchSerialNumber.Text;
 
-            string descText = descInput.Text;
+            if (serialNumber=="")
+            {
+                listView1.Items.Clear();
+                readFromFileAndAddToListView();
+                return;
+            }
+            else if (serialNumber.Length < 4)
+            {
+                MessageBox.Show("Incorrect Serial Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            serviceTickets.EditServiceTickets(new Guid(selectedId), statusComboBox.SelectedText, descText);
+            ServiceModel serviceTicket  = serviceTickets.GetServiceTicketWithSerialNumber(serialNumber);
+
+            string[] row = { serviceTicket.Id.ToString(), serviceTicket.SerialNumber, serviceTicket.Name, serviceTicket.Description, serviceTicket.Status };
+            listView1.Items.Clear();
+            ListViewItem item = new ListViewItem(row);
+            listView1.Items.Add(item);
+        }
+
+        private void buildSearchByStatusListView(string statusToSearch)
+        {
+            listView1.Items.Clear();
+            foreach (var serviceTicket in serviceTickets.GetAllServiceTicketsWithGivenStatus(statusToSearch))
+            {
+                string[] row = { serviceTicket.Id.ToString(), serviceTicket.SerialNumber, serviceTicket.Name, serviceTicket.Description, serviceTicket.Status };
+                ListViewItem item = new ListViewItem(row);
+                listView1.Items.Add(item);
+            }
+        }
+
+        private void searchByStatus_Click(object sender, EventArgs e)
+        {
+            if (pendingRadioButton.Checked)
+            {
+                buildSearchByStatusListView(pendingRadioButton.Text);
+                return;
+            }
+            else if (inRealizationRadioButton.Checked)
+            {
+                buildSearchByStatusListView(inRealizationRadioButton.Text);
+                return;
+            }
+            else if (toVerifyRadioButton.Checked)
+            {
+                buildSearchByStatusListView(toVerifyRadioButton.Text);
+                return;
+            }
+            else if (doneRadioButton.Checked)
+            {
+                buildSearchByStatusListView(doneRadioButton.Text);
+                return;
+            }
+        }
+
+        private void generatePDF_Click(object sender, EventArgs e)
+        {
+            List<ServiceModel> serviceTicketsList = serviceTickets.GetAllServiceTicketsWithGivenStatus("DONE");
+
+            PdfDocument doc = new PdfDocument();
+
+            PdfPage page = doc.Pages.Add();
+
+            PdfGrid pdfGrid = new PdfGrid();
+
+            PdfFont font = new PdfStandardFont(PdfFontFamily.Helvetica, 20);
+
+            PdfGraphics graphics = page.Graphics;
+
+            graphics.DrawString("ERP - Service", font, PdfBrushes.Black, new PointF(200, 0));
+
+            graphics.DrawString("Summary of done tasks", new PdfStandardFont(PdfFontFamily.Helvetica, 16), PdfBrushes.Black, new PointF(170, 30));
+
+            DataTable dataTable = new DataTable();
+
+            dataTable.Columns.Add("ID");
+            dataTable.Columns.Add("Serial Number");
+            dataTable.Columns.Add("Name");
+            dataTable.Columns.Add("Description");
+
+            foreach (var serviceTicket in serviceTicketsList)
+            {
+                dataTable.Rows.Add(new object[] { serviceTicket.Id, serviceTicket.SerialNumber, serviceTicket.Name, serviceTicket.Description });
+            }
+
+            pdfGrid.DataSource = dataTable;
+
+            pdfGrid.Draw(page, new PointF(10, 60));
+
+            doc.Save("Summary_"+ DateTime.Now.ToString("dd/MM/yyyy/HH/mm") + ".pdf");
+            doc.Close(true);
         }
     }
 }

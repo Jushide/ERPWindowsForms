@@ -10,3 +10,10 @@ C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForm
 C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.pdb
 C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.ServiceForm.resources
 C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.Service.AddServiceTicketForm.resources
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindowsForms.Service.EditServiceTicket.resources
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\bin\Debug\Syncfusion.Compression.Base.dll
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\bin\Debug\Syncfusion.Licensing.dll
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\bin\Debug\Syncfusion.Pdf.Base.dll
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\bin\Debug\Syncfusion.Compression.Base.xml
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\bin\Debug\Syncfusion.Pdf.Base.xml
+C:\Programowanie\dotNET\ERPWindowsForms\ERPWindowsForms\obj\Debug\ERPWindo.9BE8E74E.Up2Date

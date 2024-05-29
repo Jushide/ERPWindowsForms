@@ -24,6 +24,11 @@ namespace ERPWindowsForms.Models
             serviceTicket.Description = desc;
         }
 
+        public List<ServiceModel> GetAllServiceTicketsWithGivenStatus(string status)
+        {
+            return ServiceTicketsList.FindAll(st => st.Status == status);
+        }
+
         public List<ServiceModel> GetAllServiceTickets()
         {
             return ServiceTicketsList;
@@ -32,6 +37,11 @@ namespace ERPWindowsForms.Models
         public ServiceModel GetServiceTicket(Guid guid)
         {
             return ServiceTicketsList.Find(st => st.Id == guid);
+        }
+
+        public ServiceModel GetServiceTicketWithSerialNumber(string serialNumber)
+        {
+            return ServiceTicketsList.Find(st => st.SerialNumber == serialNumber);
         }
     }
 
@@ -67,6 +77,23 @@ namespace ERPWindowsForms.Models
                 Name = name,
                 Description = description,
                 Status = "PENDING"
+            };
+        }
+
+        public static ServiceModel CreateFromFile(
+           Guid guid,
+           string serialNumber,
+           string name,
+           string description,
+           string status)
+        {
+            return new ServiceModel
+            {
+                Id = guid,
+                SerialNumber = serialNumber,
+                Name = name,
+                Description = description,
+                Status = status
             };
         }
 
